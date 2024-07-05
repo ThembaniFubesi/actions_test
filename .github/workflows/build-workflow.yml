@@ -32,5 +32,5 @@
            echo "BUILD_NAME=$build_name" >> $GITHUB_ENV
            build_number=$(echo "$APP_VERSION" | sed 's/.*+//')
            echo "BUILD_NUMBER=$build_number" >> $GITHUB_ENV
-           printf $BUILD_NAME
-           printf $BUILD_NUMBER
+           echo $(BUILD_NAME)
+           echo $BUILD_NUMBER
