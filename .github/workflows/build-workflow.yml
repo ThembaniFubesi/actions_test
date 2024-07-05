@@ -36,6 +36,9 @@ jobs:
           build_name=$(echo "$APP_VERSION" | sed 's/+.*//')
           echo "BUILD_NAME=$build_name" >> $GITHUB_ENV
           build_number=$(echo "$APP_VERSION" | sed 's/.*+//')
+
+          ((build_number++))
+
           echo "BUILD_NUMBER=$build_number" >> $GITHUB_ENV
           echo $build_number
 
