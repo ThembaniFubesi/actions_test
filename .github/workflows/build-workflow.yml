@@ -27,6 +27,8 @@
        #################################
        - name: Get Latest Release Version
          shell: bash
+         env:
+           ACTIONS_STEP_DEBUG: true
          run: |
            build_name=$(echo "$APP_VERSION" | sed 's/+.*//')
            echo "BUILD_NAME=$build_name" >> $GITHUB_ENV
