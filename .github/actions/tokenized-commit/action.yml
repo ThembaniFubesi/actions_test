@@ -42,7 +42,7 @@ runs:
         CONTENT: ${{ inputs.file-content }}
       run: |
         export SHA=$( git rev-parse $DESTINATION_BRANCH:$FILE_TO_COMMIT )
-        gh api --method PUT /repos/rankengineering/rank_mobile_core/contents/$FILE_TO_COMMIT \
+        gh api --method PUT /repos/ThembaniFubesi/actions_test/contents/$FILE_TO_COMMIT \
           --field message="$MESSAGE" \
           --field content="$CONTENT" \
           --field encoding="base64" \
