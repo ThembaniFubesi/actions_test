@@ -25,6 +25,9 @@ jobs:
         run: |
           echo "APP_VERSION=$(cat pubspec.yaml | grep -m 1 -o 'version:[^:]*' | cut -f2 -d":" | xargs)" >> $GITHUB_ENV
 
+      
+      
+
       #################################
       # Get Latest Release Version
       #################################
@@ -41,6 +44,8 @@ jobs:
 
           echo "BUILD_NUMBER=$build_number" >> $GITHUB_ENV
           echo $build_number
+          new_version="${build_name}+${build_number}" 
+          sed -i '' -E "s/version: ([0-9]+\.[0-9]+\.[0-9]+\+[0-9]+)/version: $new_version/" pubspec.yaml
 
       - name: Display
         shell: bash
