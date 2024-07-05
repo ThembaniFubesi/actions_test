@@ -2,10 +2,7 @@
 # the Mecca Bingo Application.
 # It runs when a PR is merged into one of the specified branches and has the label 'Mecca'
 
-name: mb-qa-distribution-pipeline
-
-env:
-  ACTIONS_RUNNER_DEBUG: true
+name: test-pipeline
 
 on:
   push:
@@ -13,7 +10,7 @@ on:
 
 jobs:
   build-apps:
-    runs-on: ubuntu-latest
+    runs-on: macos-14
     timeout-minutes: 60
     steps:
       #################################
