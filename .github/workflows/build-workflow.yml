@@ -42,8 +42,8 @@ jobs:
         uses: ./.github/actions/increment-release
         with:
           project-path: '.'
-          build_name: ${{env.BUILD_NAME}}
-          build_number: ${{env.BUILD_NUMBER}}
+          build-name: ${{env.BUILD_NAME}}
+          build-number: ${{env.BUILD_NUMBER}}
 
       - name: Set and encode file content variable
         shell: bash
