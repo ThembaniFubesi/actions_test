@@ -1,0 +1,13 @@
+name: Increment
+description: "testing."
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v4
+    - name: Increment Release
+      shell: bash
+      run: |
+        new_version="${{env.BUILD_NAME}}+${{env.BUILD_NUMBER}}" 
+        sed -i '' -E "s/version: ([0-9]+\.[0-9]+\.[0-9]+\+[0-9]+)/version: 20/" ./pubspec.yaml
+        
