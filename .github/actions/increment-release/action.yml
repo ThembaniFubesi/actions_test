@@ -1,13 +1,27 @@
-name: Increment
-description: "testing."
+name: Update pubspec.yaml version
+description: Updates the pubspec.yaml app version with the new version
+inputs:
+  project-path:
+    description: "The path of the pubspec.yaml file"
+    required: true
+  build-name:
+    description: "The app build name"
+    required: true
+  build-number:
+    description: "The app build number"
+    required: true
 
 runs:
-  using: composite
+  using: "composite"
   steps:
     - uses: actions/checkout@v4
-    - name: Increment Release
+    - name: Update pubspec.yaml
+      id: pubspec-update
       shell: bash
+      env:
+        BUILD_NAME: ${{inputs.build-name}}
+        BUILD_NUMBER: ${{inputs.build-number}}
+        PROJECT_PATH: ${{inputs.project-path}}
       run: |
-        new_version="${{env.BUILD_NAME}}+${{env.BUILD_NUMBER}}" 
-        sed -i '' -E "s/version: ([0-9]+\.[0-9]+\.[0-9]+\+[0-9]+)/version: $new_version/" ./pubspec.yaml
-
+        new_version="${BUILD_NAME}+${BUILD_NUMBER}"
+        sed -i '' -E "s/version: ([0-9]+\.[0-9]+\.[0-9]+\+[0-9]+)/version: $new_version_no_prefix/" ${PROJECT_PATH}/pubspec.yaml
