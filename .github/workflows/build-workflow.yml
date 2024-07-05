@@ -21,10 +21,6 @@ jobs:
         shell: bash
         run: |
           echo "APP_VERSION=$(cat pubspec.yaml | grep -m 1 -o 'version:[^:]*' | cut -f2 -d":" | xargs)" >> $GITHUB_ENV
-
-      
-      
-
       #################################
       # Get Latest Release Version
       #################################
@@ -45,8 +41,16 @@ jobs:
       - name: Increment Version
         uses: ./.github/actions/increment-release
 
-      - name: Display
+      - name: Set and encode file content variable
         shell: bash
         run: |
-          echo v.${{env.BUILD_NAME}}
-          echo v.${{env.BUILD_NUMBER}}
+          echo "FILE_CONTENT=$(base64 -i apps/grosvenor_prod/pubspec.yaml)" >> $GITHUB_ENV
+      - name: Tokenized Commit
+        uses: ./.github/actions/tokenized-commit
+        with:
+          file-path: apps/grosvenor_prod/pubspec.yaml
+          file-content: ${{ env.FILE_CONTENT }}
+          branch: ${{ github.ref_name }}
+          message: "chore: bump version [skip ci]"
+          appId: ${{ secrets.BRANCH_COMMIT_APP_ID }}
+          appKey: ${{ secrets.BRANCH_COMMIT_APP_KEY }}
