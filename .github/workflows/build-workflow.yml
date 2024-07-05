@@ -1,42 +1,42 @@
- # This Pipeline delivers APK and signed IPA builds to the manual qa team for
- # the Mecca Bingo Application.
- # It runs when a PR is merged into one of the specified branches and has the label 'Mecca'
- 
- name: mb-qa-distribution-pipeline
- 
- env:
-   ACTIONS_RUNNER_DEBUG: true
+# This Pipeline delivers APK and signed IPA builds to the manual qa team for
+# the Mecca Bingo Application.
+# It runs when a PR is merged into one of the specified branches and has the label 'Mecca'
 
- on:
+name: mb-qa-distribution-pipeline
+
+env:
+  ACTIONS_RUNNER_DEBUG: true
+
+on:
   push:
     branches: ["main"]
- 
- jobs:
-   build-apps:
-     runs-on: ubuntu-latest
-     timeout-minutes: 60
-     steps:
-       #################################
-       # Get App Version from pubspec.yaml
-       #################################
-       - uses: actions/checkout@v4
-       - name: Get App Version from pubspec.yaml
-         shell: bash
-         run: |
-           echo "APP_VERSION=$(cat pubspec.yaml | grep -m 1 -o 'version:[^:]*' | cut -f2 -d":" | xargs)" >> $GITHUB_ENV
- 
-       #################################
-       # Get Latest Release Version
-       #################################
-       - name: Get Latest Release Version
-         shell: bash
-         env:
-           ACTIONS_STEP_DEBUG: true
-         run: |
-           build_name=$(echo "$APP_VERSION" | sed 's/+.*//')
-           echo "BUILD_NAME=$build_name" >> $GITHUB_ENV
-           build_number=$(echo "$APP_VERSION" | sed 's/.*+//')
-           echo "BUILD_NUMBER=$build_number" >> $GITHUB_ENV
-           echo $(BUILD_NAME)
-           echo $BUILD_NUMBER
-           echo 'test'
+
+jobs:
+  build-apps:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      #################################
+      # Get App Version from pubspec.yaml
+      #################################
+      - uses: actions/checkout@v4
+      - name: Get App Version from pubspec.yaml
+        shell: bash
+        run: |
+          echo "APP_VERSION=$(cat pubspec.yaml | grep -m 1 -o 'version:[^:]*' | cut -f2 -d":" | xargs)" >> $GITHUB_ENV
+
+      #################################
+      # Get Latest Release Version
+      #################################
+      - name: Get Latest Release Version
+        shell: bash
+        env:
+          ACTIONS_STEP_DEBUG: true
+        run: |
+          build_name=$(echo "$APP_VERSION" | sed 's/+.*//')
+          echo "BUILD_NAME=$build_name" >> $GITHUB_ENV
+          build_number=$(echo "$APP_VERSION" | sed 's/.*+//')
+          echo "BUILD_NUMBER=$build_number" >> $GITHUB_ENV
+          echo ${{env.BUILD_NAME}}
+          echo ${{env.BUILD_NUMBER}}
+          echo 'test'
