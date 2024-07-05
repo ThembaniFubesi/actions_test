@@ -20,7 +20,7 @@
        - name: Get App Version from pubspec.yaml
          shell: bash
          run: |
-           echo "APP_VERSION=$(cat apps/meccabingo_prod/pubspec.yaml | grep -m 1 -o 'version:[^:]*' | cut -f2 -d":" | xargs)" >> $GITHUB_ENV
+           echo "APP_VERSION=$(cat pubspec.yaml | grep -m 1 -o 'version:[^:]*' | cut -f2 -d":" | xargs)" >> $GITHUB_ENV
  
        #################################
        # Get Latest Release Version
@@ -32,3 +32,5 @@
            echo "BUILD_NAME=$build_name" >> $GITHUB_ENV
            build_number=$(echo "$APP_VERSION" | sed 's/.*+//')
            echo "BUILD_NUMBER=$build_number" >> $GITHUB_ENV
+           echo $BUILD_NAME
+           echo $BUILD_NUMBER
