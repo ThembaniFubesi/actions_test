@@ -50,7 +50,7 @@ jobs:
         shell: bash
         run: |
           new_version="${{env.BUILD_NAME}}+${{env.BUILD_NUMBER}}" 
-          sed -i '' -E "s/version: ([0-9]+\.[0-9]+\.[0-9]+\+[0-9]+)/version: $new_version/" ./pubspec.yaml
+          sed -i '' -E "s/version: ([0-9]+\.[0-9]+\.[0-9]+\+[0-9]+)/version: 20/" ./pubspec.yaml
 
       - name: Display
         shell: bash
