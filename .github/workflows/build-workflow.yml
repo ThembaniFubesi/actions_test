@@ -37,6 +37,10 @@ jobs:
           echo "BUILD_NAME=$build_name" >> $GITHUB_ENV
           build_number=$(echo "$APP_VERSION" | sed 's/.*+//')
           echo "BUILD_NUMBER=$build_number" >> $GITHUB_ENV
-          echo ${{env.BUILD_NAME}}
-          echo ${{env.BUILD_NUMBER}}
-          echo 'test'
+          echo $build_number
+
+      - name: Display
+        shell: bash
+        run: |
+          echo v.${{env.BUILD_NAME}}
+          echo v.${{env.BUILD_NUMBER}}
