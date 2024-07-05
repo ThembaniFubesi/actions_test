@@ -5,7 +5,7 @@
  name: mb-qa-distribution-pipeline
  
  env:
-   ACTIONS_STEP_DEBUG: true
+   ACTIONS_RUNNER_DEBUG: true
 
  on:
   push:
